@@ -5,7 +5,10 @@ import './Questions.css';
 // Replace with the actual path to your quiz data
 import quizData from '../questions';
 
+
+// Define the CustomQuizComponent functional component
 const CustomQuizComponent = () => {
+  // State variables to manage quiz state
   const [currentQuesIndex, setCurrentQuesIndex] = useState(0);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isHighlighted, setIsHighlighted] = useState(false);
@@ -13,13 +16,16 @@ const CustomQuizComponent = () => {
   const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
 
+  // Function to handle option selection
   const handleOptionSelection = (optionId) => {
     const isOptionCorrect =
       quizData[currentQuesIndex].options.find((option) => option.id === optionId)?.isCorrect || false;
 
+    // Update state based on selected option
     setSelectedOption(optionId);
     setCorrectAnswersCount(correctAnswersCount + (isOptionCorrect ? 1 : 0));
 
+    // Move to the next question or complete the quiz
     if (currentQuesIndex < quizData.length - 1) {
       setCurrentQuesIndex(currentQuesIndex + 1);
       setSelectedOption(null);
@@ -29,6 +35,7 @@ const CustomQuizComponent = () => {
     }
   };
 
+  // Function to handle quiz restart
   const handleRestartQuiz = () => {
     setCurrentQuesIndex(0);
     setSelectedOption(null);
@@ -38,37 +45,37 @@ const CustomQuizComponent = () => {
     setIsQuizCompleted(false);
   };
 
-// Function to get an uppercase letter based on the index (0 corresponds to 'A', 1 to 'B', and so on)
-const getOptionLetter = (index) => String.fromCharCode(68 + index);
+  // Function to get an uppercase letter based on the index (0 corresponds to 'A', 1 to 'B', and so on)
+  const getOptionLetter = (index) => String.fromCharCode(68 + index);
 
-// Function to set the state variable isHighlighted to true, indicating something is highlighted
-const handleHighlight = () => setIsHighlighted(true);
+  // Function to set the state variable isHighlighted to true, indicating something is highlighted
+  const handleHighlight = () => setIsHighlighted(true);
 
-// Function to set the state variable isHighlighted to false, indicating the highlight has been removed
-const removeHighlight = () => setIsHighlighted(false);
+  // Function to set the state variable isHighlighted to false, indicating the highlight has been removed
+  const removeHighlight = () => setIsHighlighted(false);
 
+  // Function to handle light mode toggle
   const handleLightModeToggle = () => {
     setIsLightMode(!isLightMode);
   
     // Get the body element
     const body = document.body;
   
-    // Set background color based on the mode
+    // Set background color and text color based on the mode
     body.style.backgroundColor = isLightMode ? '#857c76' : '#f0f0f0';
-  
-    // Set text color based on the mode
     body.style.color = isLightMode ? 'white' : 'black';
   
-     // Get the button element
+    // Get the button element
     const button = document.getElementsByClassName('btn');
-
-     // Set the background color of the button to violet
-     button.style.backgroundColor = 'violet';
-
+  
+    // Set the background color of the button to violet
+    button.style.backgroundColor = 'violet';
+  
     // Toggle 'light-mode' class
     body.classList.toggle('light-mode');
   };
 
+  // Render result component if the quiz is completed
   if (isQuizCompleted) {
     const percentage = ((correctAnswersCount / quizData.length) * 100).toFixed(2);
 
@@ -82,6 +89,7 @@ const removeHighlight = () => setIsHighlighted(false);
     );
   }
 
+  // Render quiz component if the quiz is not completed
   const { text, options } = quizData[currentQuesIndex];
   const questionHeader = `Question ${currentQuesIndex + 1} of ${quizData.length}`;
 
@@ -116,4 +124,5 @@ const removeHighlight = () => setIsHighlighted(false);
   );
 };
 
+// Export the CustomQuizComponent
 export default CustomQuizComponent;
