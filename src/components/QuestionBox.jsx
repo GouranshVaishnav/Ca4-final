@@ -65,12 +65,6 @@ const CustomQuizComponent = () => {
     body.style.backgroundColor = isLightMode ? '#857c76' : '#f0f0f0';
     body.style.color = isLightMode ? 'white' : 'black';
   
-    // Get the button element
-    const button = document.getElementsByClassName('btn');
-  
-    // Set the background color of the button to violet
-    button.style.backgroundColor = 'violet';
-  
     // Toggle 'light-mode' class
     body.classList.toggle('light-mode');
   };
